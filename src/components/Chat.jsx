@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import ChatInput from "./ChatInput";
 import db from "../firebase";
 import InfoIcon from "@material-ui/icons/Info";
 
@@ -17,7 +18,7 @@ function Chat() {
         </ChannelDetails>
       </Header>
       <MessageContainer></MessageContainer>
-      <ChatInput></ChatInput>
+      <ChatInput/>
     </Container>
   );
 }
@@ -59,8 +60,6 @@ const ChannelInfo = styled.div`
 `;
 
 const MessageContainer = styled.div``;
-
-const ChatInput = styled.div``;
 
 const Info = styled(InfoIcon)`
   margin-left: 0.5rem;
