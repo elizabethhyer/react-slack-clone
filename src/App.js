@@ -10,6 +10,7 @@ import db from "./firebase";
 
 function App() {
   const [rooms, setRooms] = useState([]);
+  const [user, setUser] = useState();
 
   const getChannels = () => {
     db.collection("rooms").onSnapshot((snapshot) => {
@@ -25,25 +26,25 @@ function App() {
     getChannels();
   }, []);
 
-  console.log(rooms);
-
   return (
     <div className="App">
       <Router>
-        <Container>
-          <Header />
-          <Main>
-            <Sidebar rooms={rooms} />
-            <Switch>
-              <Route path={"/room"}>
-                <Chat />
-              </Route>
-              <Route path={"/"}>
-                <Login />
-              </Route>
-            </Switch>
-          </Main>
-        </Container>
+        {!user ? (
+          <Login setUser={setUser} />
+        ) : (
+          <Container>
+            <Header user={user} />
+            <Main>
+              <Sidebar rooms={rooms} />
+              <Switch>
+                <Route path={"/room"}>
+                  <Chat />
+                </Route>
+                <Route path={"/"}>Home</Route>
+              </Switch>
+            </Main>
+          </Container>
+        )}
       </Router>
     </div>
   );
@@ -52,7 +53,7 @@ function App() {
 export default App;
 
 const Container = styled.div`
-  padding: 2rem;
+  padding: 1.5rem;
   width: auto;
   height: 95vh;
   display: grid;

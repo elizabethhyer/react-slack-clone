@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import ChatInput from "./ChatInput";
+import ChatMessage from "./ChatMessage";
 import db from "../firebase";
 import InfoIcon from "@material-ui/icons/Info";
 
@@ -17,8 +18,10 @@ function Chat() {
           <Info />
         </ChannelDetails>
       </Header>
-      <MessageContainer></MessageContainer>
-      <ChatInput/>
+      <MessageContainer>
+        <ChatMessage />
+      </MessageContainer>
+      <ChatInput />
     </Container>
   );
 }
