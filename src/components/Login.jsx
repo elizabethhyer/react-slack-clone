@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { auth, provider } from "../firebase";
+import slack from "./slack.png";
 
 function Login(props) {
   const signIn = () => {
@@ -22,13 +23,7 @@ function Login(props) {
   return (
     <Container>
       <Content>
-        <SlackImg
-          src={
-            null
-              ? null
-              : "http://assets.stickpng.com/images/5cb480cd5f1b6d3fbadece79.png"
-          }
-        />
+        <SlackImg src={slack} />
 
         <SignInButton onClick={signIn}>Sign in with google</SignInButton>
       </Content>

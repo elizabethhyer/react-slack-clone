@@ -37,7 +37,6 @@ const Container = styled.div`
   justify-content: center;
   overflow: hidden;
   position: relative;
-  box-shadow: inset 0 0 0 1px rgba(104 74 104);
 `;
 
 const Main = styled.div`

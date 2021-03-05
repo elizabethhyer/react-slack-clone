@@ -69,7 +69,7 @@ const Container = styled.div`
   width: auto;
   height: 95vh;
   display: grid;
-  grid-template-rows: 3rem auto;
+  grid-template-rows: 3rem minmax(0, 1fr);
 `;
 
 const Main = styled.div`
