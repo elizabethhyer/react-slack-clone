@@ -3,7 +3,7 @@ import styled from "styled-components";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
 
-function Header({ user }) {
+function Header({ user, signOut }) {
   return (
     <Container>
       <Main>
@@ -17,7 +17,7 @@ function Header({ user }) {
       </Main>
       <UserContainer>
         <Name>{user.name}</Name>
-        <UserImage>
+        <UserImage onClick={signOut}>
           <img
             src={user.photo ? user.photo : "https://i.imgur.com/6VBx3io.png"}
           />
@@ -81,9 +81,13 @@ const Name = styled.div`
 `;
 
 const UserImage = styled.div`
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 3px;
+  border: 1px solid white;
+  cursor: pointer;
+
   img {
     width: 100%;
-    border-radius: 5px;
-    border: 1px solid white;
   }
 `;

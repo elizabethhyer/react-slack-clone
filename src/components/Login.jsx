@@ -11,6 +11,7 @@ function Login(props) {
           name: res.user.displayName,
           photo: res.user.photoURL,
         };
+        localStorage.setItem("user", JSON.stringify(newUser));
         props.setUser(newUser);
       })
       .catch((err) => {
@@ -21,7 +22,13 @@ function Login(props) {
   return (
     <Container>
       <Content>
-        <SlackImg src="http://assets.stickpng.com/images/5cb480cd5f1b6d3fbadece79.png" />
+        <SlackImg
+          src={
+            null
+              ? null
+              : "http://assets.stickpng.com/images/5cb480cd5f1b6d3fbadece79.png"
+          }
+        />
 
         <SignInButton onClick={signIn}>Sign in with google</SignInButton>
       </Content>

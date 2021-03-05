@@ -1,19 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import db from "../firebase";
 import SendIcon from "@material-ui/icons/Send";
 
-function ChatInput() {
+function ChatInput({ sendMessage }) {
+  const [input, setInput] = useState("");
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!input) return;
+    sendMessage(input);
+    setInput("");
+  };
+
+  const handleChange = (e) => {
+    setInput(e.target.value);
   };
 
   return (
     <Container>
       <InputContainer>
-        <form onSubmit={handleSubmit}>
-          <input type="text" placeholder="Say hi!" />
-          <SendButton>
+        <form>
+          <input
+            onChange={handleChange}
+            type="text"
+            value={input}
+            placeholder="Say hi!"
+          />
+          <SendButton type="submit" onClick={handleSubmit}>
             <Send />
           </SendButton>
         </form>
@@ -51,7 +64,8 @@ const InputContainer = styled.div`
   }
 `;
 
-const SendButton = styled.div`
+const SendButton = styled.button`
+  border: none;
   background-color: #007a5a;
   border-radius: 2px;
   width: 2rem;
@@ -67,6 +81,10 @@ const SendButton = styled.div`
 
   :hover {
     background: #148567;
+  }
+
+  :focus {
+    outline: none;
   }
 `;
 

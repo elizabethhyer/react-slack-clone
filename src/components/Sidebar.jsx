@@ -4,8 +4,17 @@ import styled from "styled-components";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import AddIcon from "@material-ui/icons/Add";
 import db from "../firebase";
+import { useHistory } from "react-router-dom";
 
 function Sidebar({ rooms }) {
+  const history = useHistory();
+
+  const goToChannel = (id) => {
+    if (id) {
+      history.push(`/room/${id}`);
+    }
+  };
+
   const addChannel = () => {
     const promptName = prompt("Enter channel name");
     if (promptName) {
@@ -15,10 +24,14 @@ function Sidebar({ rooms }) {
     }
   };
 
+  const handleClick = () => {
+    history.push("/");
+  };
+
   return (
     <Container>
       <WorkspaceContainer>
-        <Name>annoyingVideo</Name>
+        <Name onClick={handleClick}>slackClone</Name>
         <NewMessage>
           <AddCircleOutlineIcon />
         </NewMessage>
@@ -38,7 +51,7 @@ function Sidebar({ rooms }) {
         </NewChannelContainer>
         <ChannelsList>
           {rooms.map((r) => (
-            <Channel># {r.name}</Channel>
+            <Channel onClick={() => goToChannel(r.id)}># {r.name}</Channel>
           ))}
         </ChannelsList>
       </ChannelsContainer>
@@ -63,7 +76,9 @@ const WorkspaceContainer = styled.div`
   border-bottom: 1px solid #532753;
 `;
 
-const Name = styled.div``;
+const Name = styled.div`
+  cursor: pointer;
+`;
 
 const NewMessage = styled.div`
   width: 2rem;

@@ -5,12 +5,14 @@ import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Chat from "./components/Chat";
 import Login from "./components/Login";
+import Home from "./components/Home";
 import styled from "styled-components";
 import db from "./firebase";
+import { auth, provider } from "./firebase";
 
 function App() {
   const [rooms, setRooms] = useState([]);
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
 
   const getChannels = () => {
     db.collection("rooms").onSnapshot((snapshot) => {
@@ -19,6 +21,13 @@ function App() {
           return { id: doc.id, name: doc.data().name };
         })
       );
+    });
+  };
+
+  const signOut = () => {
+    auth.signOut().then(() => {
+      localStorage.removeItem("user");
+      setUser(null);
     });
   };
 
@@ -33,12 +42,15 @@ function App() {
           <Login setUser={setUser} />
         ) : (
           <Container>
-            <Header user={user} />
+            <Header signOut={signOut} user={user} />
             <Main>
               <Sidebar rooms={rooms} />
               <Switch>
-                <Route path={"/room"}>
-                  <Chat />
+                <Route path="/room/:channelId">
+                  <Chat user={user} />
+                </Route>
+                <Route path="/">
+                  <Home />
                 </Route>
                 <Route path={"/"}>Home</Route>
               </Switch>
